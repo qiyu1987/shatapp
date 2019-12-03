@@ -1,6 +1,7 @@
 // screens/SignUp.js
 
 import React, { Component } from "react"
+import { connect } from "react-redux"
 import ReactNative, {
 	View,
 	KeyboardAvoidingView,
@@ -15,7 +16,7 @@ import Person, { formOptions } from "../models/Person"
 
 import signUp from "../actions/users/sign-up"
 
-export default class SignUp extends Component {
+class SignUp extends Component {
 	constructor(props) {
 		super(props)
 
@@ -41,8 +42,7 @@ export default class SignUp extends Component {
 		const newUser = form.getValue()
 		if (!newUser) return
 		console.log(newUser)
-		signUp(newUser)
-		this.clearForm()
+		this.props.signUp(newUser)
 	}
 	render() {
 		const Form = t.form.Form
@@ -71,3 +71,6 @@ export default class SignUp extends Component {
 		)
 	}
 }
+const mapStateToProps = ({ loading }) => ({ loading })
+
+export default connect(mapStateToProps, { signUp })(SignUp)
